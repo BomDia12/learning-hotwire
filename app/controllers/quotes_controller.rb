@@ -1,11 +1,16 @@
 class QuotesController < ApplicationController
-  before_action :set_quote, only: [:show, :edit, :update, :destroy]
+  before_action :set_quote, only: [:edit, :update, :destroy]
 
   def index
     @quotes = Quote.all
   end
 
   def show
+    begin
+      set_quote
+    rescue
+      redirect_to quotes_path
+    end
   end
 
   def new
@@ -18,7 +23,7 @@ class QuotesController < ApplicationController
     if @quote.save
       redirect_to quotes_path, notice: "Quote created successfully."
     else
-      render :new
+      render :new, status: :unprocessable_entity
     end
   end
 
@@ -29,13 +34,17 @@ class QuotesController < ApplicationController
     if @quote.update(quote_params)
       redirect_to quotes_path, notice: "Quote edited successfully."
     else
-      render :edit
+      render :edit, status: :unprocessable_entity
     end
   end
 
   def destroy
     @quote.destroy
-    redirect_to quotes_path, notice: "Quote deleted successfully."
+
+    redirect_to do |format|
+      format.turbo_stream
+      format.html { redirect_to quotes_path, notice: "Quote deleted successfully." }
+    end
   end
 
   private
@@ -47,5 +56,4 @@ class QuotesController < ApplicationController
   def quote_params
     params.require(:quote).permit(:name)
   end
-
 end
