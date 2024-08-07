@@ -1,10 +1,16 @@
-<main class="container">
+<main class="flex flex-col gap-2">
+    <%= turbo_stream_from "quotes_stream" %>
+
     <%= turbo_frame_tag "header" do %>
-        <div class="header">
-            <h1>Quotes</h1>
-            <%= link_to "New quote", new_quote_path, class: "btn btn-primary" %>
+        <div class="flex justify-between min-h-max border-2 border-solid border-gray-900 px-1 py-2 rounded items-center">
+            <h1 class="w-min text-xl flex">Quotes</h1>
+            <%= link_to "New quote", new_quote_path, class: "px-2 py-1 border border-slate-500 rounded bg-cyan-300 hover:bg-green-600 hover:text-white hover:border-green-600 transition-all text-l", data: { turbo_frame: "new_quote" } %>
         </div>
     <% end %>
 
-    <%= render @quotes %>
+    <%= turbo_frame_tag Quote.new %>
+
+    <%= turbo_frame_tag "quotes", class: "flex flex-col gap-1" do %>
+        <%= render @quotes %>
+    <% end %>
 </main>

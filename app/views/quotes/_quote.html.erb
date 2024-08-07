@@ -1,11 +1,11 @@
 <%= turbo_frame_tag quote do %>
-    <div class="quote">
+    <div class="flex justify-between border-b border-solid border-gray-400 px-1 py-1 gap-1 items-center">
 
-        <%= link_to quote.name, quote_path(quote), data: { turbo_frame: "_top" } %>
+        <%= link_to quote.name, quote_path(quote), data: { turbo_frame: "_top" }, class: "flex-2 min-h-max" %>
 
-        <div class="quote-actions">
-            <%= button_to "Delete", quote_path(quote), method: :delete, class: "btn btn-light" %>
-            <%= link_to "Edit", edit_quote_path(quote), class: "btn btn-light" %>
+        <div class="flex gap-1">
+            <%= link_to "Edit", edit_quote_path(quote), class: "px-2 py-1 border border-slate-500 rounded bg-cyan-300 hover:bg-green-600 hover:text-white hover:border-green-600 transition-all" %>
+            <%= button_to "Delete", quote_path(quote), method: :delete, class: "px-2 py-1 border border-slate-500 rounded bg-red-200 hover:bg-red-600 hover:text-white hover:border-red-600 transition-all" %>
         </div>
     </div>
 <% end %>

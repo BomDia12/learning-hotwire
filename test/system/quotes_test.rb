@@ -3,7 +3,7 @@ require "application_system_test_case"
 # E2E tests
 class QuotesTest < ApplicationSystemTestCase
   setup do 
-    @quote = quotes(:first)
+    @quote = Quote.ordered.first
   end
 
   test "Creating a new quote" do

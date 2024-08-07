@@ -1,6 +1,6 @@
 SimpleForm.setup do |config|
   # Wrappers configration
-  config.wrappers :default, class: "form__group" do |b|
+  config.wrappers :default, class: "form_group" do |b|
     b.use :html5
     b.use :placeholder
     b.use :label, class: "visually-hidden"
